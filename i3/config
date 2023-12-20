@@ -18,7 +18,6 @@ font pango:JetBrainsMonoNLNerdFontMono-Regular 10
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
 exec --no-startup-id dex --autostart --environment i3
-exec --no-startup-id /nix/store/bf6d3mj74kmffq97fliq4084fvcr5hq0-gnome-settings-daemon-45.0/libexec/gsd-xsettings
 
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
@@ -26,11 +25,11 @@ exec --no-startup-id /nix/store/bf6d3mj74kmffq97fliq4084fvcr5hq0-gnome-settings-
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
 # and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+exec_always --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -188,7 +187,7 @@ set $urgent-bg-color     #E53935
 
 # window colors
 #                       border              background         text                 indicator
-client.focused #000000 #4c7899  #ffffff #2e9ef4
+client.focused #000000 #f7768e #ffffff #2e9ef4
 client.unfocused #333333 #3b4261 #888888 #292d2e
 client.focused_inactive #333333 #5f676a #ffffff #484e50
 client.urgent #2f343a #900000 #ffffff #900000
@@ -216,8 +215,8 @@ hide_edge_borders both
 
 bindsym $mod+Shift+x exec  --no-startup-id i3lock --color 475263
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec  --no-startup-id light -A 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec  --no-startup-id light -U 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec  --no-startup-id brightnessctl set +10% # increase screen brightness
+bindsym XF86MonBrightnessDown exec  --no-startup-id brightnessctl set 10-%# decrease screen brightness
 
 # Media player controls
 bindsym XF86AudioPlay exec  --no-startup-id playerctl play-pause
@@ -226,11 +225,21 @@ bindsym XF86AudioNext exec  --no-startup-id playerctl next
 bindsym XF86AudioPrev exec  --no-startup-id playerctl previous
 
 ## Clipboard Screenshots
-bindsym $mod+Shift+s exec --no-startup-id flameshot gui
-bindsym $mod+c exec --no-startup-id flatpak run "org.kryogenix.Pick"
+#bindsym --release $mod+Shift+s exec --no-startup-id scrot -s -e xclip -selection clipboard -t image/png -i $f
+# Full screenshot to clipboard
+#bindsym $mod+Print exec --no-startup-id maim | xclip -selection clipboard -t image/png
+
+# Screenshot of active window to clipboard
+bindsym $mod+Shift+Print exec --no-startup-id maim --hidecursor --capturebackground --window $(xdotool getactivewindow) | xclip -selection clipboard -t image/png
+ #Screenshot of an area to clipboard
+bindsym $mod+Shift+s exec --no-startup-id maim --hidecursor --capturebackground --select | xclip -selection clipboard -t image/png
+
+ #bindsym $mod+Shift+s exec --no-startup-id flameshot gui
+
+#bindsym $mod+c exec --no-startup-id flatpak run "org.kryogenix.Pick"
 
 
-exec_always --no-startup-id  feh --bg-center --bg-scale /home/alerv/Pictures/tokyonight.png
+exec_always --no-startup-id  feh --bg-center --bg-scale ~/Pictures/arch.png
 exec_always --no-startup-id picom 
 exec_always --no-startup-id xinput set-prop "SYNA32B5:00 06CB:CE17 Touchpad" "libinput Tapping Enabled" 1
 exec_always --no-startup-id ~/.config/polybar/launch.sh
@@ -294,4 +303,5 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
+exec --no-startup-id xrandr --output HDMI-1 --same-as eDP-1
 
