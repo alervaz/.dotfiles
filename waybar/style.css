@@ -3,7 +3,7 @@
 body,
 #waybar,
 .main-container {
-  font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial,
+  font-family: "JetBrainsMonoNL NFM", FontAwesome, Roboto, Helvetica, Arial,
     sans-serif;
   background-color: transparent;
   transition: background-color 0.5s ease-in-out;
@@ -100,7 +100,7 @@ window#waybar.hidden {
 
 #custom-pacman {
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 30px;
 }
 
 /*
@@ -110,7 +110,7 @@ window#waybar.hidden {
 */
 #pulseaudio {
   padding-right: 4px;
-  font-size: 16;
+  font-size: 14px;
   margin-bottom: 10px;
 }
 

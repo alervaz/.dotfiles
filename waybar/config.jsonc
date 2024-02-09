@@ -21,7 +21,7 @@
         }
       },
     "custom/pacman": {
-        "format": "",
+        "format": "",
         //"format": "{} ",
         // "interval": 3600,
         // "exec": "(checkupdates;pacman -Qm | aur vercmp) | wc -l",
@@ -55,15 +55,15 @@
 
     "pulseaudio": {
         "scroll-step": 0.5,
-        "format":"{icon} {volume}%",
+        "format":"{icon}{volume}%",
         "format-muted": "muted",
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
             "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "default": ["", " ", " "]
+            //"hands-free": "",
+            //"headset": "",
+            "default": [" ", " ", " "]
         },
         "on-click": "pavucontrol",
         "tooltip": false
