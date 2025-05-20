@@ -116,7 +116,7 @@
 # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alerv = {
     isNormalUser = true;
-    description = "Alejandro Vazquez";
+    description = "Name";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     firefox
